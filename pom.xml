@@ -35,6 +35,28 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- Docker image: Option 1 - Use "spring-boot-maven-plugin" for building the Docker image. -->
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+					<image>
+						<name>us.gcr.io/tu-sofia-pis-2023-dev/${project.artifactId}:${dockerImageVersion}</name>
+						<env>
+							<BPL_JAVA_NMT_ENABLED>false</BPL_JAVA_NMT_ENABLED>
+							<BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"> </BPE_DELIM_JAVA_TOOL_OPTIONS>
+							<BPE_APPEND_JAVA_TOOL_OPTIONS>-XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:MinMetaspaceFreeRatio=10 -XX:MaxMetaspaceFreeRatio=20</BPE_APPEND_JAVA_TOOL_OPTIONS>
+						</env>
+					</image>
+				</configuration>
+			</plugin>
+
+
+
 		</plugins>
 	</build>
 
