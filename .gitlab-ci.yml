@@ -1,0 +1,31 @@
+stages:
+  - build
+
+variables:
+  MAVEN_CLI_OPTS: "-B -U -T 1.0C -ntp -ff"
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+
+.build:
+  stage: build
+  image: maven:3-amazoncorretto-17
+  before_script:
+    - echo "starting build"
+  script:
+    - echo "Starting maven"
+    - mvn ${MAVEN_CLI_OPTS} clean install
+    - echo "Maven build ended"
+  after_script:
+    - echo "build done"
+
+
+build branch:
+  extends: .build
+  only:
+    - branches
+
+build tag:
+  extends: .build
+  only:
+    - tags
+    - ^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$
