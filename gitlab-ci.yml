@@ -10,10 +10,10 @@ stages:
 variables:
   MAVEN_CLI_OPTS: "-B -U -T 2.0C -ntp -ff"
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-  IMAGE: "eu.gcr.io/tu-sofia-pis-2021-dev/$CI_PROJECT_NAME"
-  INSTANCES: 2
-  CPU: 200m
-  MEMORY: 256Mi
+  IMAGE: "eu.gcr.io/tu-sofia-pis-2023-dev/$CI_PROJECT_NAME"
+  INSTANCES: 1
+  CPU: 100m
+  MEMORY: 200Mi
   CONTAINER_JAVA_OPTS_JMX: "-Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=5555 -Dcom.sun.management.jmxremote.rmi.port=5555 -Dcom.sun.management.jmxremote.jmxmp.port=5555 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=127.0.0.1"
   #CONTAINER_JAVA_OPTS_CDBG: "-agentpath:/opt/cdbg/cdbg_java_agent.so -Dcom.google.cdbg.module=$CI_PROJECT_NAME -Dcom.google.cdbg.version=$CI_COMMIT_SHA"
   #CONTAINER_JAVA_OPTS_CPROF: "-agentpath:/opt/cprof/profiler_java_agent.so=-cprof_service=$CI_PROJECT_NAME,-cprof_service_version=$CI_COMMIT_SHA,-cprof_cpu_use_per_thread_timers=false,-cprof_force_debug_non_safepoints=true"
@@ -30,7 +30,7 @@ variables:
 build branch:
   extends: .build
   tags:
-    - tu-sofia-pis-2021-dev
+    - tu-sofia-pis-2023-dev
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
@@ -41,7 +41,7 @@ build branch:
 build tag:
   extends: .build
   tags:
-    - tu-sofia-pis-2021-dev
+    - tu-sofia-pis-2023-dev
   only:
     - tags
     - ^([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$
@@ -53,7 +53,7 @@ build tag:
     - sed -i "s|${IMAGE}$|${IMAGE}:${CI_COMMIT_SHA:0:7}|g" k8s/*
     - CONTAINER_JAVA_OPTS="${CONTAINER_JAVA_OPTS_MEMORY} ${CONTAINER_JAVA_OPTS_PROFILES} ${CONTAINER_JAVA_OPTS_JMX} ${CONTAINER_JAVA_OPTS_CDBG} ${CONTAINER_JAVA_OPTS_CPROF}"
     - sed -i "s|\\\${CONTAINER_JAVA_OPTS}|${CONTAINER_JAVA_OPTS}|g" k8s/*
-    #- sed -i "s|${CI_COMMIT_SHA}|${CI_COMMIT_SHA:0:7}|g" k8s/*
+    - sed -i "s|${CI_COMMIT_SHA}|${CI_COMMIT_SHA:0:7}|g" k8s/*
     - sed -i "s|\\\${INSTANCES}|${INSTANCES}|g" k8s/*
     - sed -i "s|\\\${CPU}|${CPU}|g" k8s/*
     - sed -i "s|\\\${MEMORY}|${MEMORY}|g" k8s/*
@@ -64,11 +64,11 @@ build tag:
 dev-tu-sofia-pis:
   <<: *deploy_definition
   tags:
-    - tu-sofia-pis-2021-dev
+    - tu-sofia-pis-2023-dev
   stage: deploy-dev
   environment:
-    name: tu-sofia-pis-2021-dev
-    url: https://tu-sofia-pis-2021-dev.tu-sofia.bg/
+    name: tu-sofia-pis-2023-dev
+    url: https://tu-sofia-pis-2023-dev.tu-sofia.bg/
   only:
     - main
     - dev
@@ -82,10 +82,10 @@ prod-tu-sofia-pis:
   #  CONTAINER_JAVA_OPTS_MEMORY: "-Xmx3584m"
   stage: deploy-prod
   tags:
-    - tu-sofia-pis-2021-prod
+    - tu-sofia-pis-2023-prod
   environment:
-    name: tu-sofia-pis-2021-prod
-    url: https://tu-sofia-pis-2021-prod.tu-sofia.bg/
+    name: tu-sofia-pis-2023-prod
+    url: https://tu-sofia-pis-2023-prod.tu-sofia.bg/
   when: manual
   only:
     - main
