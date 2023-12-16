@@ -11,7 +11,7 @@ stages:
 variables:
   MAVEN_ARGS: "-B -U -T 1.0C -ntp -ff"
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-  IMAGE: "us.gcr.io/tu-sofia-pis-2023-dev/$CI_PROJECT_NAME"
+  IMAGE: "us.gcr.io/tu-sofia-pis-2023-dev/471223093"
   INSTANCES: 1
   CPU: 20m
   MEMORY: 300Mi

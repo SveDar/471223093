@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tu-sofia-pis-2023
+  name: tu-sofia-pis-2023-471223093
   labels:
-    app: tu-sofia-pis-2023
+    app: tu-sofia-pis-2023-471223093
 spec:
   replicas: ${INSTANCES}
   selector:
     matchLabels:
-      app: tu-sofia-pis-2023
+      app: tu-sofia-pis-2023-471223093
   template:
     metadata:
       labels:
-        app: tu-sofia-pis-2023
+        app: tu-sofia-pis-2023-471223093
     spec:
       volumes:
         - name: data
           emptyDir: {}
 
       containers:
-        - name: tu-sofia-pis-2023
+        - name: tu-sofia-pis-2023-471223093
           image: us.gcr.io/tu-sofia-pis-2023-dev/471223093
           env:
             - name: JAVA_TOOL_OPTIONS
