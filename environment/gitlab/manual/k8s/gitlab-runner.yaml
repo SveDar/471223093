@@ -1,0 +1,45 @@
+# 471220016 in this file is the same value as defined in "im.sh" and "deploy.sh" 
+# and is replaced by the "deploy.sh" script.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-runner471220016
+  labels:
+    app: gitlab-runner471220016
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: gitlab-runner471220016
+  template:
+    metadata:
+      labels:
+        name: gitlab-runner471220016
+    spec:
+      containers:
+      - args:
+        - run
+        image: gitlab/gitlab-runner:alpine
+        imagePullPolicy: Always
+        name: gitlab-runner471220016
+        volumeMounts:
+        - mountPath: /etc/gitlab-runner
+          name: config
+        - mountPath: /etc/ssl/certs
+          name: cacerts
+          readOnly: true
+        resources:
+          requests:
+            cpu: 20m
+            memory: 20Mi
+          limits:
+            memory: 50Mi
+      volumes:
+        - name: config
+          configMap:
+            name: gitlab-runner471220016
+        - name: cacerts
+          hostPath:
+            path: /etc/ssl/certs
