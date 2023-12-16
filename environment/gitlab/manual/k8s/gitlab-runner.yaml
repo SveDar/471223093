@@ -1,29 +1,29 @@
-# 471220016 in this file is the same value as defined in "im.sh" and "deploy.sh" 
+# 471223093 in this file is the same value as defined in "im.sh" and "deploy.sh" 
 # and is replaced by the "deploy.sh" script.
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gitlab-runner471220016
+  name: gitlab-runner471223093
   labels:
-    app: gitlab-runner471220016
+    app: gitlab-runner471223093
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: gitlab-runner471220016
+      name: gitlab-runner471223093
   template:
     metadata:
       labels:
-        name: gitlab-runner471220016
+        name: gitlab-runner471223093
     spec:
       containers:
       - args:
         - run
         image: gitlab/gitlab-runner:alpine
         imagePullPolicy: Always
-        name: gitlab-runner471220016
+        name: gitlab-runner471223093
         volumeMounts:
         - mountPath: /etc/gitlab-runner
           name: config
@@ -39,7 +39,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: gitlab-runner471220016
+            name: gitlab-runner471223093
         - name: cacerts
           hostPath:
             path: /etc/ssl/certs

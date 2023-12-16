@@ -1,11 +1,11 @@
-# 471220016 and gitlab471220016 in this file is the same value as defined in "im.sh" and "deploy.sh"
+# 471223093 and gitlab471223093 in this file is the same value as defined in "im.sh" and "deploy.sh"
 # and is replaced by the "deploy.sh" script.
 
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: gitlab-runner471220016
-  namespace: gitlab471220016
+  name: gitlab-runner471223093
+  namespace: gitlab471223093
 rules:
   - apiGroups: [""]
     resources: ["pods"]
