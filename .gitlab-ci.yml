@@ -1,6 +1,7 @@
 default:
   image: google/cloud-sdk:latest
 
+#lets conflict
 stages:
   - build
   - build-docker
